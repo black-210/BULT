@@ -1,0 +1,6 @@
+{
+  "name": "BULT — Elite Purple-Team, RF Intelligence & Multidisciplinary Forensics System",
+  "description": "Native scientific intelligence, RF IQ analysis, purple-team security assessment, and multidisciplinary forensic investigation platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,79 @@
+/**
+ * BULT — Core Intelligence Engine
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::core;
+
+struct Finding {
+    id: str,
+    subsystem: str,
+    severity: i32,
+    confidence: f64,
+    title: str,
+    description: str,
+    evidence_id: str,
+    remediation: str,
+}
+
+struct Evidence {
+    id: str,
+    filepath: str,
+    sha256: str,
+    size_bytes: u64,
+    custodian: str,
+}
+
+struct Case {
+    id: str,
+    title: str,
+    investigator: str,
+    findings_count: u32,
+    evidence_count: u32,
+}
+
+fn create_finding(id: str, sub: str, sev: i32, conf: f64, title: str, desc: str) -> own<Finding> {
+    let f: own<Finding> = Finding {
+        id: id,
+        subsystem: sub,
+        severity: sev,
+        confidence: conf,
+        title: title,
+        description: desc,
+        evidence_id: "EV-NONE",
+        remediation: "Verify finding against local baseline",
+    };
+    return move(f);
+}
+
+fn create_evidence(id: str, path: str, hash: str, size: u64, custodian: str) -> own<Evidence> {
+    let ev: own<Evidence> = Evidence {
+        id: id,
+        filepath: path,
+        sha256: hash,
+        size_bytes: size,
+        custodian: custodian,
+    };
+    return move(ev);
+}
+
+fn create_case(id: str, title: str, investigator: str) -> own<Case> {
+    let c: own<Case> = Case {
+        id: id,
+        title: title,
+        investigator: investigator,
+        findings_count: 0,
+        evidence_count: 0,
+    };
+    return move(c);
+}
+
+fn severity_label(sev: i32) -> str {
+    if (sev == 4) { return "CRITICAL"; }
+    if (sev == 3) { return "HIGH"; }
+    if (sev == 2) { return "MEDIUM"; }
+    if (sev == 1) { return "LOW"; }
+    return "INFO";
+}

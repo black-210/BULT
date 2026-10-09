@@ -1,0 +1,65 @@
+/**
+ * BULT — RF Signal Processing & RF-DNA Subsystem
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::rf;
+
+struct ComplexSample {
+    i: f32,
+    q: f32,
+}
+
+struct IQCapture {
+    filepath: str,
+    format: i32,
+    sample_rate_hz: f64,
+    center_freq_hz: f64,
+    sample_count: u64,
+    duration_sec: f64,
+}
+
+struct SpectrumMetrics {
+    noise_floor_db: f64,
+    peak_power_db: f64,
+    peak_freq_hz: f64,
+    snr_db: f64,
+    bandwidth_3db_hz: f64,
+    dc_offset_i: f64,
+    dc_offset_q: f64,
+    amp_imbalance_db: f64,
+    phase_error_deg: f64,
+}
+
+struct RfDnaFeatures {
+    amp_variance: f64,
+    amp_skewness: f64,
+    amp_kurtosis: f64,
+    phase_variance: f64,
+    spectral_entropy: f64,
+    spectral_centroid: f64,
+}
+
+fn compute_snr(peak_db: f64, noise_db: f64) -> f64 {
+    return peak_db - noise_db;
+}
+
+fn compute_duration(samples: u64, rate: f64) -> f64 {
+    if (rate <= 0.0) {
+        return 0.0;
+    }
+    return (samples as f64) / rate;
+}
+
+fn rfdna_euclidean_distance(f1: &RfDnaFeatures, f2: &RfDnaFeatures) -> f64 {
+    let d_amp: f64 = f1.amp_variance - f2.amp_variance;
+    let d_skew: f64 = f1.amp_skewness - f2.amp_skewness;
+    let d_kurt: f64 = f1.amp_kurtosis - f2.amp_kurtosis;
+    let d_phase: f64 = f1.phase_variance - f2.phase_variance;
+    let d_ent: f64 = f1.spectral_entropy - f2.spectral_entropy;
+
+    let sum_sq: f64 = (d_amp * d_amp) + (d_skew * d_skew) + (d_kurt * d_kurt) + (d_phase * d_phase) + (d_ent * d_ent);
+    return sum_sq;
+}

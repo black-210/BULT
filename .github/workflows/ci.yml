@@ -1,0 +1,34 @@
+name: BULT Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Build Dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc cmake make
+
+      - name: Build with CMake
+        run: |
+          mkdir build && cd build
+          cmake ..
+          cmake --build .
+
+      - name: Run Native Test Suite
+        run: |
+          cd build
+          ctest --output-on-failure
+
+      - name: Run CLI Selftest
+        run: |
+          ./build/bult selftest
+          ./build/bult info
+          ./build/bult purple coverage
+          ./build/bult chemistry analyze "C8H10N4O2"

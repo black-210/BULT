@@ -1,0 +1,43 @@
+/**
+ * BULT — Red Team Security Assessment
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::red;
+
+struct UnsafeApiRule {
+    api_name: str,
+    severity: i32,
+    remediation: str,
+}
+
+struct RedAuditReport {
+    scanned_items: u32,
+    unsafe_api_count: u32,
+    credential_leak_count: u32,
+    integer_overflow_count: u32,
+    critical_count: u32,
+}
+
+fn evaluate_unsafe_pattern(name: str) -> i32 {
+    /* 3 = High, 4 = Critical */
+    if (name == "gets") { return 4; }
+    if (name == "strcpy") { return 3; }
+    if (name == "sprintf") { return 3; }
+    if (name == "system") { return 4; }
+    if (name == "strcat") { return 3; }
+    return 1;
+}
+
+fn create_red_report(items: u32, apis: u32, leaks: u32, overflows: u32) -> own<RedAuditReport> {
+    let rep: own<RedAuditReport> = RedAuditReport {
+        scanned_items: items,
+        unsafe_api_count: apis,
+        credential_leak_count: leaks,
+        integer_overflow_count: overflows,
+        critical_count: 0,
+    };
+    return move(rep);
+}

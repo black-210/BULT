@@ -1,0 +1,37 @@
+BULT — Elite Purple-Team, RF Intelligence & Multidisciplinary Forensics System
+Copyright (C) 2026 black-210 <https://github.com/black-210>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+================================================================================
+ATTRIBUTIONS & TECHNICAL NOTICES
+================================================================================
+
+1. Language Specification:
+   BULT is authored targeting the C> (C-Greater) Systems Programming Language
+   specification maintained by black-210:
+   https://github.com/black-210/C-
+
+2. Target Repository:
+   https://github.com/black-210/BULT
+
+3. Scientific & Algorithmic Foundations:
+   - RF Signal Processing & Discrete Fourier Transform: Cooley-Tukey Radix-2 FFT,
+     Welch PSD estimation, Windowing (Hann, Hamming, Blackman).
+   - RF-DNA Fingerprinting: Statistical feature extraction over instantaneous
+     amplitude, phase trajectory, and spectral moments.
+   - Direction-Finding: Stansfield / least-squares multi-station triangulation
+     and Time-Difference-of-Arrival (TDoA) hyperbolic localization solvers.
+   - IUPAC Standard Atomic Weights (2021/2026) for molecular mass computations.
+   - Electromagnetic propagation: Free-Space Path Loss (FSPL) and Friis equations.

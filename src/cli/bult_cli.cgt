@@ -1,0 +1,27 @@
+/**
+ * BULT — Command-Line Interface & REPL Shell
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::cli;
+
+struct CliState {
+    active_case: str,
+    output_json: bool,
+    verbose: bool,
+    command_count: u32,
+}
+
+fn print_prompt() -> void {
+    print("BULT > ");
+}
+
+fn print_banner() -> void {
+    println("===============================================================================");
+    println("  BULT — Elite Purple-Team, RF Intelligence & Multidisciplinary Forensics      ");
+    println("  Language: C> (C-Greater) Systems Architecture                                ");
+    println("  Maintainer: black-210 | License: GNU AGPL-3.0                                ");
+    println("===============================================================================");
+}

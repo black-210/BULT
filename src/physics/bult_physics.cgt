@@ -1,0 +1,34 @@
+/**
+ * BULT — Physics & Electromagnetic Analysis Subsystem
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::physics;
+
+struct PhysicalMeasurement {
+    value: f64,
+    uncertainty: f64,
+    unit: str,
+}
+
+struct EmWaveParameters {
+    frequency_hz: f64,
+    wavelength_m: f64,
+    fspl_1km_db: f64,
+    dipole_length_m: f64,
+}
+
+fn compute_wavelength(freq_hz: f64) -> f64 {
+    let c: f64 = 299792458.0;
+    if (freq_hz <= 0.0) {
+        return 0.0;
+    }
+    return c / freq_hz;
+}
+
+fn compute_dipole_half_wave(wavelength_m: f64) -> f64 {
+    /* Half-wave dipole length with 0.95 velocity factor */
+    return (wavelength_m / 2.0) * 0.95;
+}

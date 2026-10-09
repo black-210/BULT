@@ -1,0 +1,29 @@
+/**
+ * BULT — Digital Forensics & Chain-of-Custody Subsystem
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::forensics;
+
+struct CustodyRecord {
+    evidence_id: str,
+    action: str,
+    officer: str,
+    timestamp: i64,
+    sha256_verified: bool,
+}
+
+struct ForensicCase {
+    case_id: str,
+    evidence_count: u32,
+    findings_count: u32,
+    is_sealed: bool,
+}
+
+fn seal_case(c: own<ForensicCase>) -> own<ForensicCase> {
+    let mut updated: own<ForensicCase> = move(c);
+    updated.is_sealed = true;
+    return move(updated);
+}

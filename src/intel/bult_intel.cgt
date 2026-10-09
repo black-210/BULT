@@ -1,0 +1,60 @@
+/**
+ * BULT — RF Intelligence, Direction Finding & Localization
+ * Language: C> (C-Greater) Systems Programming Language Specification
+ * Target: black-210/C-
+ * License: GNU AGPL-3.0
+ */
+
+module bult::intel;
+
+struct DfBearing {
+    latitude: f64,
+    longitude: f64,
+    bearing_deg: f64,
+    weight: f64,
+}
+
+struct TdoaStation {
+    latitude: f64,
+    longitude: f64,
+    timestamp_sec: f64,
+}
+
+struct LocalizationEstimate {
+    latitude: f64,
+    longitude: f64,
+    uncertainty_semi_major_m: f64,
+    uncertainty_semi_minor_m: f64,
+    confidence_score: f64,
+    sufficient_evidence: bool,
+    notes: str,
+}
+
+fn evaluate_df_sufficiency(station_count: u32) -> bool {
+    /* Scientific boundary: At least 2 non-collinear bearings required */
+    if (station_count >= 2) {
+        return true;
+    }
+    return false;
+}
+
+fn evaluate_tdoa_sufficiency(station_count: u32) -> bool {
+    /* Scientific boundary: At least 3 synchronized receivers required */
+    if (station_count >= 3) {
+        return true;
+    }
+    return false;
+}
+
+fn create_insufficient_result() -> own<LocalizationEstimate> {
+    let est: own<LocalizationEstimate> = LocalizationEstimate {
+        latitude: 0.0,
+        longitude: 0.0,
+        uncertainty_semi_major_m: 999999.0,
+        uncertainty_semi_minor_m: 999999.0,
+        confidence_score: 0.0,
+        sufficient_evidence: false,
+        notes: "INSUFFICIENT DATA: Requires >= 2 DF bearings or >= 3 synchronized TDoA receivers.",
+    };
+    return move(est);
+}
